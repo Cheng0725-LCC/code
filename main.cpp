@@ -1,7 +1,9 @@
 #include <iostream>
-#include <string>
+//#include <cstring>
 #include <cstdlib>
 #include <cmath>
+#include <vector>
+#include <string>
 using namespace std;
 //输入三个数字，比较大小
 int compareWeight(int a,int b,int c){
@@ -174,6 +176,131 @@ void numArray(int x){
         }
     }
 }
-int main(){
-    numArray(6);
+//寻找10元素里数组里和最大的子列的和（数组元素不限正负，数组元素大小为-127~128）(最简便方法，时间复杂度为O(n))
+int findMaxSum(int arr[]){
+    int maxSum=arr[0],thisSum=0;
+    for(int i=0;i<10;i++){
+        thisSum+=arr[i];
+        if(thisSum>maxSum)
+            maxSum=thisSum;
+        if(thisSum<0){  
+        thisSum=0;
+        }
+    }
+    return maxSum;
 }
+//第二种方法O(n^3)
+int findMaxSum1 (int arr[]){
+    int thisSum=0,maxSum=arr[0];
+    for(int i=0;i<10;i++){
+        for(int j=i;j<10;j++){
+            for(int k=i;k<=j;k++){
+                thisSum+=arr[k];
+            }
+            if(thisSum>maxSum)
+            maxSum=thisSum;
+            thisSum=0;
+        }
+    }
+    return maxSum;
+}
+//第三种方法O(n^2)
+int findMaxSum2(int arr[]){
+    int thisSum=0,maxSum=arr[0];
+    for(int i=0;i<10;i++){
+        for(int j=i;j<10;j++){
+            thisSum+=arr[j];
+            if(thisSum>maxSum)
+            maxSum=thisSum;
+        }
+        thisSum=0;
+    }
+    return maxSum;
+}
+//第四种方法O(nlogn)，递归。
+int findMaxSum3(int arr[]){return 0;}
+//输出给定区间的素数个数以及和
+void primeSum(){
+    int M,N,count=0,sum=0;
+    cin>>M>>N;
+    if(M==1)
+    M==2;
+    for(int i=M;i<=N;i++){
+        for(int j=2;j<i;j++){
+            if(i%j==0){
+                break;
+            }else if(j==i-1){
+                count+=1;
+                sum+=i;
+            }
+        }
+    }
+    cout<<count<<" "<<sum<<endl;
+}
+vector<int> twoSum(vector<int>& nums, int target) {
+    vector<int> res={0,0};
+        for(int i=0;i<nums.size();i++){
+            for(int j=i;j<nums.size();j++){
+                if (nums[i]+nums[j]==target&&i!=j)
+                {
+                    res={i,j};
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+void greetName(){
+    cout<<"Please enter your name:";
+    string name;
+    cin>>name;
+
+    string greet="* Hello, "+name+"! *";
+    string first(greet.size(),'*');
+    string spaces(greet.size()-2,' ');
+    string second="*"+spaces+"*";
+
+    cout<<first<<endl;
+    cout<<second<<endl;
+    cout<<greet<<endl;
+    cout<<second<<endl;
+    cout<<first<<endl;
+}
+void greetName2(int pad){
+    cout<<"Please enter your name:";
+    string name;
+    cin>>name;
+
+    string greet="Hello, "+name+"!";
+    string::size_type cols=greet.size()+pad*2+2;
+    int rows=pad*2+3;
+    int r=0;
+    int c=0;
+    //while循环
+    while(r!=rows){
+        while (c!=cols)
+        {
+                if(r==0||r==rows-1||c==0||c==cols-1)
+            {
+                cout<<"*";
+                c++;
+            }
+            else if(r==pad+1&&c==pad+1){
+                cout<<greet;
+                c+=greet.size();
+            }
+            else{
+                cout<<" ";
+                c++;
+            }      
+        }
+        cout<<endl;
+        c=0;
+        r++;  
+    }
+}
+int main(){
+    greetName2(5);
+}
+    
+
